@@ -1,0 +1,207 @@
+<html>
+<body>
+<head>
+	<title>Create a configuration file</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='css/commons.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div id="root-container">
+
+	<h1>Create a configuration file</h1>
+
+	<p>The following screenshots show how to create a configuration file to import
+	the sensor data for a single station from a CSV file. The wizard outputs an XML
+	in the end which can be passed to the importer on the command line.<br />
+
+	<h2>Data preparation</h2>
+	The CSV file must only contain sensor data for a single station. In the screenshots
+	the data for the station "Wedding 010" is shown. This means you will need to
+	create a separate configuration file for each station.</p>
+	<p>All of the cells need to contain a value. If a row contains at least one empty
+	cell the whole row will be skipped. This is
+	a <a href="https://github.com/52North/sos-importer/issues/52"
+	title="Issue #52: Skip empty cells, do not skip whole row">known issue</a> and might be solved in
+	the near future.</p>
+
+	<h2>Starting the wizard</h2>
+	The wizard can be started from the command line as follows:
+
+	<div class="shell">
+	<tt>
+	$ cd path/to/sos-importer<br />
+	$ java -jar ./wizard/target/52n-sos-importer-wizard-bin.jar
+	</tt>
+	</div>
+
+	<h2>Step 1: Choose CSV file</h2>
+	<img src="gfx/sos-importer-step-1-choose-csv-file.png" />
+
+	<h2>Step 2: Define CSV file metadata</h2>
+	<p>Here you define the header row in the CSV file.</p>
+	<img src="gfx/sos-importer-step-2-define-csv-file-metadata.png" />
+
+	<h2>Step 3a: Choose metadata for the selected column: Sensor</h2>
+	<p>This is the column which contains the identifier of the sensor station.</p>
+	<img src="gfx/sos-importer-step-3a-choose-metadata-for-the-selected-column-01-sensor-id.png" />
+
+
+	<h2>Step 3a: Choose metadata for the selected column: Time stamp</h2>
+	<p>This columns contains the time stamp. The importer recognizes the correct pattern (most of the time).</p>
+	<img src="gfx/sos-importer-step-3a-choose-metadata-for-the-selected-column-02-date.png" />
+
+	<h2>Step 3a: Choose metadata for the selected column: Measured value - Numeric value</h2>
+	<p>If the column contains numeric values everything should be fine.</p>
+	<img src="gfx/sos-importer-step-3a-choose-metadata-for-the-selected-column-03-measured-value.png" />
+	<h2>Step 3a: Choose metadata for the selected column: Measured value - Count</h2>
+	<p>The importer also offers to import <tt>count</tt> values which works for itself.
+	The <tt>count</tt> setting can be seen in the previous screenshot.
+	However, the <em>Sensor Web JS Client</em> does <b>not</b> support displaying <tt>count</tt> values.
+	Therefore, do <b>not</b> import them.</p>
+	<p>The screenshot shows the column <tt>partikelPM10Ueberschreitungen</tt> which is a <tt>count</tt> value.</p>
+	<img src="gfx/sos-importer-step-3a-choose-metadata-for-the-selected-column-04-count.png" />
+	<p>Repeat this step for each data column.</p>
+
+	<h2>Step 6b: Add missing metadata: Feature of interest</h2>
+	<p>The <tt>feature of interest</tt> is the <b>same for all data columns</b>. Since this example is
+	for the station "Wedding 010" a custom <tt>identifier name</tt> and <tt>URI</tt> is created.</p>
+	<img src="gfx/sos-importer-step-6b-add-missing-metadata-01.png" />
+	<p>Repeat this step for each data column.</p>
+
+	<h2>Step 6b: Add missing metadata: Observed property</h2>
+	<p>Now is the time to create a custom <tt>identifier name</tt> and <tt>URI</tt> for each data column.</p>
+	<img src="gfx/sos-importer-step-6b-add-missing-metadata-02.png" />
+
+	<p>Here is a table of the <tt>identifier names</tt> and <tt>URIs</tt> being used. The values are stored in
+	<tt>~/.SOSImporter/52n-sensorweb-sos-importer.properties</tt> in case you need to fix a typo.</p>
+
+	<table>
+		<tr>
+			<th>Identifier name</th>
+			<th>URI</th>
+		</tr>
+		<tr>
+			<td>Partikel, PM10, Tagesmittel</td>
+			<td>Partikel_PM10_Tagesmittel</td>
+		</tr>
+		<tr>
+			<td>Partikel, PM10, Anzahl Ueberschreitungen/Jahr</td>
+			<td>Partikel_PM10_Anzahl_Ueberschreitungen_Pro_Jahr</td>
+		</tr>
+		<tr>
+			<td>Russ, Tagesmittel</td>
+			<td>Russ_Tagesmittel</td>
+		</tr>
+		<tr>
+			<td>Russ, max. 3 Stundenwert</td>
+			<td>Russ_Max_3_Stundenwert</td>
+		</tr>
+		<tr>
+			<td>Stickstoffdioxid, Tagesmittel</td>
+			<td>Stickstoffdioxid_Tagesmittel</td>
+		</tr>
+		<tr>
+			<td>Stickstoffdioxid, max. 1 Stundenwert</td>
+			<td>Stickstoffdioxid_Max_1_Stundenwert</td>
+		</tr>
+		<tr>
+			<td>Benzol, Tagesmittel</td>
+			<td>Benzol_Tagesmittel</td>
+		</tr>
+		<tr>
+			<td>Benzol, max. 1 Stundenwert</td>
+			<td>Benzol_Max_1_Stundenwert</td>
+		</tr>
+		<tr>
+			<td>Kohlenmonoxid, Tagesmittel</td>
+			<td>Kohlenmonoxid_Tagesmittel</td>
+		</tr>
+		<tr>
+			<td>Kohlenmonoxid, max. gleitender 8 Stundenwert</td>
+			<td>Kohlenmonoxid_Max_Gleitender_8_Stundenwert</td>
+		</tr>
+		<tr>
+			<td>Ozon, max. 1 Stundenwert</td>
+			<td>Ozon_Max_1_Stundenwert</td>
+		</tr>
+		<tr>
+			<td>Ozon, max. gleitender 8 Stundenwert</td>
+			<td>Ozon_Max_Gleitender_8_Stundenwert</td>
+		</tr>
+		<tr>
+			<td>Schwefeldioxid, Tagesmittel</td>
+			<td>Schwefeldioxid_Tagesmittel</td>
+		</tr>
+		<tr>
+			<td>Schwefeldioxid, max. 1 Stundenwert</td>
+			<td>Schwefeldioxid_Max_1_Stundenwert</td>
+		</tr>
+	</table>
+
+
+	<p>Repeat this step for each data column.</p>
+
+	<h2>Step 6b: Add missing metadata: Unit of measurement</h2>
+	<p>Now is the time to create a custom identifier and URI for the unit of measurement.
+	Please note that a few data columns have a different unit.</p>
+	<img src="gfx/sos-importer-step-6b-add-missing-metadata-03.png" />
+
+	<p>Here is a table of the <tt>identifier names</tt> and <tt>URIs</tt> being used. The values are stored in
+	<tt>~/.SOSImporter/52n-sensorweb-sos-importer.properties</tt> in case you need to fix a typo.</p>
+
+	<table>
+		<tr>
+			<th>Identifier name</th>
+			<th>URI</th>
+		</tr>
+		<tr>
+			<td>mg/m&sup3;</td>
+			<td>milligram-per-cubic-meter</td>
+		</tr>
+		<tr>
+			<td>&micro;g/m&sup3;</td>
+			<td>microgram-per-cubic-meter</td>
+		</tr>
+	</table>
+
+
+	<h2>Step 6c: Add missing positions</h2>
+	<p>Now enter the geographic position of the sensor station, in this case for "Wedding 010".</p>
+	<img src="gfx/sos-importer-step-6c-add-missing-positions.png" />
+
+	<h2>Step 7: Final configuration</h2>
+	<p>In order to save the configuration file choose a writeable folder for the XML file.
+	The following settings are configured but are hard to read from the screenshot:</p>
+
+	<h3>SOS URL</h3>
+	<ul>
+		<li>URL: http://localhost:8080/52n-sos-webapp/service</li>
+	</ul>
+
+	<h3>Specification Version</h3>
+	<ul>
+		<li>Version: 2.0.0</li>
+		<li>Binding: POX</li>
+	</ul>
+
+	<h3>Import strategy</h3>
+	<ul>
+		<li>Strategy: SweStrategyObservation</li>
+		<li>Hunk size: 5,000</li>
+		<li>Send buffer: 25</li>
+	</ul>
+
+	<img src="gfx/sos-importer-step-7-final-configuration.png" />
+
+	<h2>Step 8: Final step - Summary of the results</h2>
+	<p>You are done. The configuration file should be saved in the folder you specified.
+	The wizard now allows to immediately start the import. I recommend to skip this step.
+	Instead you can run the importer dedicated from the command line in order to see the
+	log output and to notice possible errors.</p>
+	<img src="gfx/sos-importer-step-8-final-step-summary-of-the-results.png" />
+
+</div>
+
+</body>
+</html>

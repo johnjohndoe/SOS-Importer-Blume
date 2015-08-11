@@ -1,0 +1,43 @@
+<html>
+<body>
+<head>
+	<title>Import sensor data</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='css/commons.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div id="root-container">
+
+	<h1>Import sensor data</h1>
+
+	<p>This documentation describes how to import sensor data in the SOS server instance using the feeder.<br />
+
+	<h2>Requirements</h2>
+
+	<ul>
+		<li>SOS server is running</li>
+		<li>Configuration file has been created for the sensor station</li>
+		<li>Sensor data contains rows for a single station, no empty cells</li>
+	</ul>
+
+	<h2>Run from command line</h2>
+
+	<p>Here is how you can run the feeder from the command line. Pass the configuration file with
+	the <tt>-c</tt> parameter and the data file with the <tt>-d</tt> parameter. The console output is
+	piped into a log file.</p>
+
+	<div class="shell">
+	<tt>
+	$ cd path/to/sos-importer<br />
+	$ java -jar ./feeder/target/52n-sos-importer-feeder-bin.jar \<br />
+	&nbsp;&nbsp;-c ~/Desktop/SOS-Testdaten/sensordata.csv.52n-sos-import-config.xml \<br />
+	&nbsp;&nbsp;-d ~/Desktop/SOS-Testdaten/sensordata-010.csv \<br />
+	&nbsp;&nbsp;> ~/Desktop/sensordata-010.log
+	</tt>
+	</div>
+
+</div>
+
+</body>
+</html>
